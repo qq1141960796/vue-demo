@@ -37,4 +37,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 #### 一、安装全局vue-cli脚手架  
 * 1、$ npm install -g vue-cli
 * 2、$ vue (安装完成后输入检查vue是否安装成功)
-！[脚手架安装成功]{jtimg/1.png}
+！[脚手架安装成功](jtimg/1.png)

@@ -36,8 +36,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 #### 一、安装全局vue-cli脚手架  
 * 1、$ npm install -g vue-cli
-* 2、$ vue (安装完成后输入检查vue是否安装成功)
-![安装成功如图](jtimg/1.png)  
+* 2、$ vue (安装完成后输入检查vue是否安装成功)![安装成功如图](jtimg/1.png)  
 
 #### 二、创建项目  
 * 1、首先选择项目存放的位置

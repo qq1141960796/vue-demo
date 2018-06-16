@@ -47,4 +47,17 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 > * 5、如果搭建成功在浏览器上如图显示![](jtimg/3.png)
 
 ### 三、项目结构
-> 
+> * build: webpack相关配置文件
+> * config: webpack相关配置文件
+> * jtimg: 配置vue截图img，做项目时删除
+> * node_modules: npm 依赖代码库
+> * src: 项目原码
+> * static: 纯静态资源（直接复制）
+> * test: 单位测试
+> * .babelrc: babe配置
+> * .editorconfig: 编辑器配置
+> * .eslintignore: 忽略语法检测的目录文件
+> * .eslintignore: eslint 配置文件
+> * .gitignore: 忽略提交git的目录
+> * index.html： 项目入口文件
+> * package.json: 构建脚本和依赖关系

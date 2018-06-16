@@ -64,6 +64,3 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
   
   
 
-## 基本用法
-
-#### 1、hello world 起步

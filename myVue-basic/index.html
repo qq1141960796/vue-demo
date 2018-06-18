@@ -3,8 +3,262 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Hello World</title>
+	<style>
+		.test {
+			color: red;
+		}
+		.test1 {
+			color: blue;
+		}
+	</style>
 </head>
 <body>
-	<div>你好</div>
+	<!-- ===== 1、hello world起步 ===== -->
+	<!-- 模板 -->
+	<div id="app1">
+		<!-- 声明式渲染 -->
+		<h1>1、声明式渲染:{{ msg }}</h1>
+	</div>
+
+
+	<!-- ===== 2、v-heml 指令   ===== -->
+	<div id="app2" v-html="rawHtml"></div>
+
+
+	<!-- ===== 3、v-bind 指令   ===== -->
+	<div id="app3">
+		<span v-bind:title:="message">3、v-bind指令：鼠标悬停</span>
+	</div>
+
+
+	<!-- ===== 4、v-bind 指令 Class 与 Style 绑定  ===== -->
+	<!-- 第一种 直接绑定 -->
+	<div id="app4">
+		<span class="static" v-bind:class="{test: isActive, 'test1': hasError}">4、Class 与 Style 绑定1：你好程序猿</span>
+	</div> 
+
+	<!-- 第二种 绑定对象-->
+	<div id="app4-2">
+		<span class="static" v-bind:class="classObj">4、Class 与 Style 绑定2：你好程序猿</span>
+	</div>
+
+	<!-- 第三种 数组语法-->
+	<div id="app4-3">
+		<span class="static" v-bind:class="[active, active2]">4、Class 与 Style 绑定3：你好程序猿</span>
+	</div>
+
+	<!-- ===== 5、循环与绑定  ===== -->
+	<!-- 第一种 v-if -->
+	<div id="app5">
+		<!-- 通过if else 指令来控制元素的显示 -->
+		<p v-if="ifElse">5、if: 我喜欢写代码</p>
+		<p v-else>5、if: 我不喜欢写代码</p>
+	</div>
+	<!-- 第二种 v-for -->
+	<div id="app5-1">
+		<!-- 数组 -->
+		<ul>
+			<li v-for="(item, index) in arr">
+				5、for数组：{{index}}: {{item}}
+			</li>
+		</ul>
+		<!-- 对象 -->
+		<ul>
+			<li v-for="(value, key, index) in obj">
+				5、for对象： {{index}}: {{key}}={{value}}
+			</li>
+		</ul>
+	</div>
+
+	<!-- ===== 6、处理用户输入 ===== -->
+	<!-- 第一种： v-on 指令 -->
+	<div id="app6">
+		<p>6、v-on：{{msg}}</p>
+		<!-- v-on 指令绑定一个监听事件用于调用我们 Vue 实例中定义的方法 -->
+		<button v-on:click="reverseMsg">6、v-on：点击</button>
+	</div>
+	<!-- 第二种： v-model 指令 -->
+	<!-- 在表单输入和应用状态中做双向数据绑定 -->
+	<div id="app6-1">
+		<p>6、v-model：{{msg}}</p>
+		<input type="text" v-model="msg">		
+	</div>
+
+
+	<!-- ===== 7、组件的注册或创建 ===== -->
+	<!-- 全局注册 -->
+	<div id="app7">
+		<hello></hello>
+	</div>
+	<!-- 局部注册 -->
+	<div id="app7-1">
+		<hello></hello>
+	</div>
+	<!-- 特殊 -->
+	<table id="app7-2">
+		<!-- 自定义组件 <my-row>被认为是无效的内容，因此在渲染的时候会导致错误 -->
+		<my-row></my-row>
+	</table>
+	<table id="app7-3">
+		<!-- 变通的方法，使用特殊的is属性 -->
+		<tr is="my-tr"></tr>
+	</table>
+
+	<!-- 引入vue -->
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script>
+		// 1、hello world起步
+		// 创建一个vue对象，同时将这个对象挂载到 #app（这里是元素id） 的元素上
+		let app1 = new Vue({
+			// 挂载点
+			el: '#app1',
+			// Vue 对象中管理的数据 VM ( ViewModel ), 可以直接在面板上通过声明来进行数据访问
+			data: {
+				msg: 'Hello World'
+			}
+		})
+
+
+		// 2、v-heml 指令
+		let app2 = new Vue({
+			el: '#app2',
+			data() {
+				return {
+					rawHtml: '<h1>2、v-heml 指令:hello world</h1>'
+				}
+			}
+		})
+
+
+		// 3、v-bind 指令
+		let app3 = new Vue({
+			el: '#app3',
+			data() {
+				return {
+					message: '页面加载于 ' + new Date().toLocaleString(),
+					title: '你好程序猿'
+				}
+			}
+		})
+
+		// 4、v-bind 指令 Class 与 Style 绑定
+		// 第一种 直接绑定
+		let app4 = new Vue({
+			el: '#app4',
+			data: {
+				isActive: true,
+				hasError: true
+			}
+		})
+		// 第二种 对象绑定
+		let app4A = new Vue({
+			el: '#app4-2',
+			data: {
+				classObj: {
+					test: true,
+					test1: false
+				}				
+			}
+		})
+		// 第三种 数组语法
+		let app4B = new Vue({
+			el: '#app4-3',
+			data: {
+				active: 'test',
+				active2: 'test1'				
+			}
+		})
+
+		// 5、条件与循环
+		// v-if
+		let app5 = new Vue({
+			el: '#app5',
+			data: {
+				ifElse: false				
+			}
+		})
+		// v-for 
+		let app5A = new Vue({
+			el: '#app5-1',
+			data: {
+				// 数组
+				arr: ['zhangsan', 'lisi', 'guanyu'],
+				// 对象
+				obj: {
+					name: 'zhangsan',
+					age: 21,
+					gender: 'male'
+				}
+
+			}
+		})
+
+		// 6、处理用户输入
+		// 第一种： v-on指令
+		// 在监听事件中触发对 this.data的修改
+		let app6 = new Vue({
+			el: '#app6',
+			data: {
+				msg: 'hello vue'
+			},
+			methods: {
+				reverseMsg: function() {
+					// this.msg 是指的data中的msg属性
+					// 当this.data 中的属性值发生变化，视图也会重新渲染
+					this.msg = this.msg.split('').reverse().join('')
+				}
+			}
+		})
+		// 第二种： v-model 指令
+		// 在表单输入和应用状态中做双向数据绑定
+		let app6A = new Vue({
+			el: '#app6-1',
+			data: {
+				msg: 'hello 程序员'
+			}
+		})
+
+
+		// 7、组件的注册或创建
+		// 全局注册
+		Vue.component('hello', {
+			template: '<div>7、全局注册：Hello World</div>'
+		})
+
+		let app7 = new Vue({
+			el: '#app7'
+		})
+
+		// 局部注册: 通过使用组件实例选项注册，可以使用组件仅在另一个实例/组件的作用域中可用
+		let helloVue = {
+			template: '<div>7、局部注册： Hello World</div>'
+		}
+		let app7A = new Vue({
+			el: '#app7-1',
+			components: {
+				'hello': helloVue
+			}
+		})
+
+		// 特殊
+		let trRow = {
+			template: `
+				<tr>
+					<td>7、特殊： is： HTML/</td>
+					<td>7、特殊： is： CSS/</td>
+					<td>7、特殊： is： JS</td>
+				</tr>
+			`
+		}
+
+		let app7B = new Vue({
+			el: '#app7-3',
+			components: {
+				'my-tr': trRow
+			}
+		})
+
+
+	</script>
 </body>
 </html>

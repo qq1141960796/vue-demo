@@ -3,13 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// import hello from './'
 
 Vue.config.productionTip = false
+
+Vue.component("App", App) // Vue.component组件在初始化实例之前注册为全局注册
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
-  template: '<App/>'
+  // components: { App }, // Vue.component组件在实例中注册为局部注册
+  template: '<App />'
 })

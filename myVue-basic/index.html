@@ -104,6 +104,30 @@
 		<tr is="my-tr"></tr>
 	</table>
 
+
+
+	<!-- ===== 8、data ===== -->
+	<div id="app8">
+		<vue-counter></vue-counter>
+		<vue-counter></vue-counter>
+		<vue-counter></vue-counter>
+	</div>
+
+	<!-- ===== 9、props的使用 ===== -->
+	<div id="app9">
+		<container></container>
+	</div>
+
+	<!-- ===== 10、单向数据流（props） ===== -->
+	<div id="app10">
+		<containers></containers>
+	</div>
+
+	<!-- ===== 11、自定义事件 ===== -->
+	<div id="app11">
+		<containerS></containerS>
+	</div>
+
 	<!-- 引入vue -->
 	<script src="https://unpkg.com/vue/dist/vue.js"></script>
 	<script>
@@ -258,6 +282,155 @@
 			}
 		})
 
+
+		// 8、data
+		let data = {
+			counter: 0
+		}
+
+		Vue.component('vue-counter', {
+			template: '<button @click="counter += 1">8、data: {{counter}}</button>',
+			// data是一个函数，因此Vue不会警告
+			// 但是我们为没有个组件返回了同一个对象引用
+			data: function() {
+				// return data // 由于三个组件共享了同一个data，因此增加一个counter会影响所有组件,点击button按钮的时候全部的按钮上的counter变量值都会一起变
+				// 改为如下代码
+				return {
+					counter: 0
+				}
+			}
+		})
+		let app8 = new Vue({
+			el: '#app8'
+		})
+
+
+		// 9、props的使用
+		// 声明变量   对象
+		let container = {
+			template: `
+				<div>
+					<span>9、props的使用： 容器组件</span>
+					<child :msg="message" />
+				</div>
+			`,
+			data() {
+				return {
+					message: '9、props的使用: 动态props'
+				}
+			}
+		}
+		let child = {
+			template: `
+				<div>
+					<span>子组件</span>
+					{{ msg }}
+				</div>
+			`,
+			// props在这里使用
+			props: ['msg']
+		}
+		// 注册组件
+		Vue.component('container', container);
+		Vue.component('child', child);
+
+		let app9 = new Vue({
+			el: '#app9'
+		})
+
+
+		// 10、单向数据流（props）
+		// 声明变量   对象
+		let containers = {
+			template: `
+				<div>
+					<span>10、props的使用： 容器组件</span>
+					<input type="text" v-model='message' name="" value="">
+					<childs :msg="message" />
+				</div>
+			`,
+			data() {
+				return {
+					message: '10、props的使用: 动态props'
+				}
+			}
+		}
+		let childs = {
+			template: `
+				<div>
+					<span>子组件</span>
+					<input type="text" v-model='message' name="" value="">
+					{{ message }}
+				</div>
+			`,
+			// props在这里使用
+			props: ['msg'],
+			data() {
+				return {
+					message: this.msg
+				}
+			}
+		}
+		// 注册组件
+		Vue.component('containers', containers);
+		Vue.component('childs', childs);
+
+		let app10 = new Vue({
+			el: '#app10'
+		})
+
+		// 11、单向数据流（props）
+		// 声明变量   对象
+		let containerS = {
+			// :msg 动态props
+			// v-on:click 监听子组件 $emit 触发的事件
+			template: `
+				<div>
+					<span>11、props的使用： 容器组件</span>
+					<input type="text" v-model='message' />
+					<childS :msg="message" v-on:click='setMessage' />
+				</div>
+			`,
+			data() {
+				return {
+					message: '11、hello'
+				}
+			},
+			methods: {
+				setMessage(msg) {
+					this.message = msg
+				}
+			}
+		}
+		let childS = {
+			template: `
+				<div>
+					<span>子组件</span>
+					<input type="text" v-model='message' v-on:input='setMessage' />
+					{{ message }}
+				</div>
+			`,
+			// props在这里使用
+			props: ['msg'],
+			data() {
+				return {
+					message: this.msg
+				}
+			},
+			methods: {
+				setMessage() {
+					// 子组件触发父级组件监听的click事件
+					this.$emit('click', this.message)
+				}
+			}
+		}
+		// 注册组件
+		Vue.component('containerS', containerS);
+		Vue.component('childS', childS);
+
+		let app11 = new Vue({
+			el: '#app11'
+		})
 
 	</script>
 </body>

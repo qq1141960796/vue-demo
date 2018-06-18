@@ -74,8 +74,8 @@
 浏览器显示如图： ![](jtimg/3.png)
 没找到悬停时显示不出来的原因，后面在看看
 
-####2.3、Class 与 Style 绑定
-#####我们也可以在对象中传入更多属性用来动态切换多个 class 。此外， v-bind:class 指令可以与普通的 class 属性 共存。如下模板:
+#### 2.3、Class 与 Style 绑定
+> 我们也可以在对象中传入更多属性用来动态切换多个 class 。此外， v-bind:class 指令可以与普通的 class 属性 共存。如下模板:
 
 > 第一种：  绑定某一个 Class  
 
@@ -345,3 +345,195 @@
 			'my-tr': trRow
 		}
 	})
+
+
+#### 3.3、data
+	<html>
+	div id="app8">
+		<vue-counter></vue-counter>
+		<vue-counter></vue-counter>
+		<vue-counter></vue-counter>
+	</div>
+	
+	<js>
+	let data = {
+		counter: 0
+	}
+	
+	Vue.component('vue-counter', {
+		template: '<button @click="counter += 1">8、data: {{counter}}</button>',
+		// data是一个函数，因此Vue不会警告
+		// 但是我们为没有个组件返回了同一个对象引用
+		data: function() {
+			// return data // 由于三个组件共享了同一个data，因此增加一个counter会影响所有组件,点击button按钮的时候全部的按钮上的counter变量值都会一起变
+			// 改为如下代码
+			// return {
+			// 	counter: 0
+			// }
+		}
+	})
+	let app8 = new Vue({
+		el: '#app8'
+	})
+
+
+#### 3.4、 Prop的使用
+> 组件实例的作用域是孤立的。这意味着不能并且不应该在子组件的模板内直接引用父组件的数据。可以使用props把数据传给子组件  
+> props是父组件用来传递数据的一个定义属性。子组件需要显示的用props选项声明“props”
+
+	<html>
+	<div id="app9">
+		<container></container>
+	</div>
+	
+	<js>
+	// 声明变量   对象
+	let container = {
+		template: `
+			<div>
+				<span>9、props的使用： 容器组件</span>
+				<child :msg="message" />
+			</div>
+		`,
+		data() {
+			return {
+				message: '9、props的使用: 动态props'
+			}
+		}
+	}
+	let child = {
+		template: `
+			<div>
+				<span>子组件</span>
+				{{ msg }}
+			</div>
+		`,
+		// props在这里使用
+		props: ['msg']
+	}
+	// 注册组件
+	Vue.component('container', container);
+	Vue.component('child', child);
+	
+	let app9 = new Vue({
+		el: '#app9'
+	})
+
+
+#### 3.5、 单向数据流
+> prop是单向绑定的，当父级组件的属性变化时，将传导给子组件，但是不会反过来。这是为了防止子组件无意修改了父组件的状态————这回让应用的数据流难以理解  
+
+	这个例子和3.4的例子差不多，可以对比一下
+	<html>
+	div id="app10">
+		<containers></containers>
+	</div>
+	
+	<js>
+	// 声明变量   对象
+	let containers = {
+		template: `
+			<div>
+				<span>10、props的使用： 容器组件</span>
+				<input type="text" v-model='message' name="" value="">
+				<childs :msg="message" />
+			</div>
+		`,
+		data() {
+			return {
+				message: '10、props的使用: 动态props'
+			}
+		}
+	}
+	let childs = {
+		template: `
+			<div>
+				<span>子组件</span>
+				<input type="text" v-model='message' name="" value="">
+				{{ message }}
+			</div>
+		`,
+		// props在这里使用
+		props: ['msg'],
+		data() {
+			return {
+				message: this.msg
+			}
+		}
+	}
+	// 注册组件
+	Vue.component('containers', containers);
+	Vue.component('childs', childs);
+	
+	let app10 = new Vue({
+		el: '#app10'
+	})
+
+
+#### 3.6、自定义事件
+> 父组件是使用props传递数据给子组件，但如果子组件要把数据传递回去，应该用自定义事件方法来做    
+
+
+=
+> 使用$on(eventName)监听事件  
+> 使用$emit(eventName)触发事件
+
+	<html>
+	<div id="app11">
+		<containerS></containerS>
+	</div>
+	<js>
+	// 声明变量   对象
+	let containerS = {
+		// :msg 动态props
+		// v-on:click 监听子组件 $emit 触发的事件
+		template: `
+			<div>
+				<span>11、props的使用： 容器组件</span>
+				<input type="text" v-model='message' />
+				<childS :msg="message" v-on:click='setMessage' />
+			</div>
+		`,
+		data() {
+			return {
+				message: '11、hello'
+			}
+		},
+		methods: {
+			setMessage(msg) {
+				this.message = msg
+			}
+		}
+	}
+	let childS = {
+		template: `
+			<div>
+				<span>子组件</span>
+				<input type="text" v-model='message' v-on:input='setMessage' />
+				{{ message }}
+			</div>
+		`,
+		// props在这里使用
+		props: ['msg'],
+		data() {
+			return {
+				message: this.msg
+			}
+		},
+		methods: {
+			setMessage() {
+				// 子组件触发父级组件监听的click事件
+				this.$emit('click', this.message)
+			}
+		}
+	}
+	// 注册组件
+	Vue.component('containerS', containerS);
+	Vue.component('childS', childS);
+	
+	let app11 = new Vue({
+		el: '#app11'
+	})
+
+
+#### 路由的基本用法可以去看一下官网的文档

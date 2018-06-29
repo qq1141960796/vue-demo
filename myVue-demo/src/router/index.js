@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
-import Hello from '../components/hello.vue'
+
+import counter from '../components/counter/app.vue';
 
 Vue.use(Router)
 
@@ -9,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'counter',
+      component: counter
     }
   ]
 })

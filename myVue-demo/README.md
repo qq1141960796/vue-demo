@@ -32,35 +32,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 * 1、首先要在components文件夹下面创建todoList的一个文件夹
 * 2、在todoList文件夹里创建addTodo.vue（新增组件）、filters.vue（过滤组件）、todoList.vue（列表组件）、wrap.vue（入口组件）这四个vue文件（四个组件）  
 结构如图： ![](jtimg/3.png)  
-* 3、在main.js中注册模板：  
-	// main.js
-	import Vue from 'vue';
-	// import App from './App'
-	// import router from './router'
-	import wrap from './components/todoList/wrap.vue';
-	import addTodo from './components/todoList/addTodo.vue';
-	import todoList from './components/todoList/todoList.vue';
-	import filters from './components/todoList/filters.vue';
-	
-	Vue.config.productionTip = false
-	
-	// Vue.component 组件在初始化实例之前注册为全局注册
-	
-	// Vue.component("App", App);
-	Vue.component('wrap', wrap);
-	Vue.component('addTodo', addTodo);
-	Vue.component('todoList', todoList);
-	Vue.component('filters', filters);
-	
-	
-	
-	/* eslint-disable no-new */
-	new Vue({
-	  el: '#app',
-	  // router,
-	  // components: { App }, // Vue.component组件在实例中注册为局部注册
-	  template: '<wrap />' // 加载入口模板
-	})
+* 3、在main.js中注册模板:  ![](jtimg/4.png)
 
 
 

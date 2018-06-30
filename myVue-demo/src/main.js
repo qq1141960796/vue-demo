@@ -1,18 +1,28 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './App'
-import router from './router'
-// import hello from './'
+// main.js
+import Vue from 'vue';
+// import App from './App'
+// import router from './router'
+import wrap from './components/todoList/wrap.vue';
+import addTodo from './components/todoList/addTodo.vue';
+import todoList from './components/todoList/todoList.vue';
+import filters from './components/todoList/filters.vue';
 
 Vue.config.productionTip = false
 
-Vue.component("App", App) // Vue.component组件在初始化实例之前注册为全局注册
+// Vue.component 组件在初始化实例之前注册为全局注册
+
+// Vue.component("App", App);
+Vue.component('wrap', wrap);
+Vue.component('addTodo', addTodo);
+Vue.component('todoList', todoList);
+Vue.component('filters', filters);
+
+
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
+  // router,
   // components: { App }, // Vue.component组件在实例中注册为局部注册
-  template: '<App />'
+  template: '<wrap />' // 加载入口模板
 })

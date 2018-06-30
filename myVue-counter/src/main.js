@@ -3,7 +3,8 @@
 import Vue from 'vue';
 import App from './App';
 // import router from './router';
-import counter from './components/counter/app.vue'
+import counter from './components/counter/app.vue';
+import store from './components/store/store.js'
 
 Vue.config.productionTip = false;
 
@@ -16,6 +17,7 @@ Vue.component("counter", counter);
 new Vue({
   el: '#app',
   // router,
+  store, // 全局声明
   // components: { App }, // Vue.component组件在实例中注册为局部注册
   template: '<counter />'
 })

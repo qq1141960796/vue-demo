@@ -33,3 +33,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 * 2、在todoList文件夹里创建addTodo.vue（新增组件）、filters.vue（过滤组件）、todoList.vue（列表组件）、wrap.vue（入口组件）这四个vue文件（四个组件）  
 结构如图： ![](jtimg/3.png)  
 * 3、在main.js中注册模板  如图： ![](jtimg/6.png)
+* 4、现在可以看组件有没有注册成功
+	* 4.1、在warp.vue文件里输入代码如图： ![](jtimg/7.png)，如果浏览器显示hello vue证明组件注册成功，如图： ![](jtimg/8.png)
+
+
+#### 二、现在我们来做todoList项目

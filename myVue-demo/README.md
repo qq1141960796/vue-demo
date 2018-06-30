@@ -32,8 +32,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 * 1、首先要在components文件夹下面创建todoList的一个文件夹
 * 2、在todoList文件夹里创建addTodo.vue（新增组件）、filters.vue（过滤组件）、todoList.vue（列表组件）、wrap.vue（入口组件）这四个vue文件（四个组件）  
 结构如图： ![](jtimg/3.png)  
-* 3、在main.js中注册模板:  ![](jtimg/4.png)
-
-
-
-
+* 3、在main.js中注册模板  如图： ![](jtimg/6.png)

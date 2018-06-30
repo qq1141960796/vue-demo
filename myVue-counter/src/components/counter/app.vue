@@ -1,5 +1,4 @@
 <!-- app.vue -->
-
 <!-- html代码 -->
 <template>
 	<div>
@@ -38,9 +37,7 @@
 				}				
 			}
 		}
-
 	}
-
 </script>
 
 <!-- css代码 -->

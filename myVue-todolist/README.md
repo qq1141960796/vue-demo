@@ -49,4 +49,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 现在开始正式做demo
 
 * 1、先看静态还原上面图片显示的样式，代码如图： ![](jtimg/10.png)
-* 2、添加事件
+
+demo做完了，下面可以在GitHub上看代码了，注释全部在代码里面了，就不在这里展示了

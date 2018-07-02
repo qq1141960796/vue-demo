@@ -3,24 +3,19 @@
 <!-- html代码 -->
 <template>
 	<div>
-		<!-- 新增 -->
-		<div>
-			<input ref='value' type="text">
-			<!-- 事件 v-on:click="addBut", v-on可以缩写为@符号，下面我用的就是缩写@click -->
-			<button @click="addBut">新增</button>
-		</div>
-		<!-- 列表 -->
-		<div>
-			<ul ref='ul'>
-				<li>张三</li>
-				<li>李四</li>
-				<li>张飞</li>
-			</ul>
-		</div>
-		<!-- 选择 -->
-		<div>
-			<p>选择显示： <span class="show">全部</span><span>正常的</span><span>删除的</span><span>3/3</span></p>
-		</div>
+		<!-- addTodo已经注册了，这里使用addTodo（新增）组件，这里的写法不同看下文档 -->
+		<add-todo @addBtn="addBtn" />
+		<!-- 列表组件 -->
+		<!-- 这里的:todoList是绑定了filterData方法的，在todoList组件用porps接收filterData方法return出来的todoList -->
+		<todo-list 
+			@completedRodo="completedRodo"
+			:todoList="filterData" />
+		<!-- 选择组件 -->
+		<filters
+			@setShowType="setShowType"
+			:showType="showType"
+			:tatal="tatal"
+			:completedTodotatal="completedTodotatal" />
 	</div>
 </template>
 
@@ -30,29 +25,77 @@
 	// export 导出多个命名模块
 	export default {
 		name: 'wrap', // 模块命名
+		// 数据vuevue
+		data() {
+			return {
+				// 默认显示选择全部
+				showType: '全部',
+				todoList: [{
+					name: '张三',
+					// 是否加载css样式
+					completed: false
+				},{
+					name: '关羽',
+					completed: true
+				},{
+					name: '李四',
+					completed: false
+				}]
+			}
+		},
+		// 方法
 		methods: {
-			// 新增按钮事件
-			addBut() {
-				// 获取输入框里的value
-				let val = this.$refs.value.value;
-				// 获取后清空输入框
-				this.$refs.value.value = '';
-				// 把获取的val添加到列表
-				console.log(this.$refs.ul);
-
+			// 新增按钮事件方法
+			addBtn(name) {
+				// 给todoList数组添加一个对象
+				this.todoList.push({
+					name,
+					completed: false
+				});
+			},
+			// 点击li是的方法
+			completedRodo(item) {
+				// 点击后completed的值去反
+				item.completed = ! item.completed
+			},
+			setShowType(showType) {
+				console.log(showType);
+				this.showType = showType
+			}
+		},
+		computed: {
+			// todoList绑定的方法
+			filterData() {
+				switch(this.showType) {
+					case '全部':
+						// 这里todoList返回出去，子组件绑定这个方法后会传递到子组件，子组件用porps接受
+						return this.todoList
+					case '正常':
+						// filter()是一个过滤器,过滤completed的值
+						return this.todoList.filter(item => item.completed)
+					case '完成':
+						return this.todoList.filter(item => !item.completed)
+				}
+			},
+			tatal() {
+				// 获取todoList对象的总长度（数量）
+				return this.todoList.length
+			},
+			completedTodotatal() {
+				// 获取todoList对象已完成的长度（数量）
+				return this.todoList.filter(item => item.completed).length
 			}
 		}
 	}
-
 </script>
 
 <!-- css代码 -->
 <style>
-	span {
+	span,a {
 		margin-right: 10px;
 		cursor: pointer;
-	}
-	.show {
-		color:  blue;
+	}	
+	.filters-wrap > * {
+		margin-right: 10px;
 	}
 </style>

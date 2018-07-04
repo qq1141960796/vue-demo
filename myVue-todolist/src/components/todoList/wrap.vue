@@ -30,6 +30,7 @@
 			return {
 				// 默认显示选择全部
 				showType: '全部',
+				// todoList数组也是可以为空的
 				todoList: [{
 					name: '张三',
 					// 是否加载css样式

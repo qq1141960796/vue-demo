@@ -7,6 +7,7 @@
 		<ul>
 			<!-- v-for渲染li列表 -->
 			<li v-for="(item, index) in todoList"
+				:key="index"
 				:class="{completed: item.completed}"
 				@click="completedRodo(item)">
 				{{item.name}}
@@ -34,7 +35,7 @@
 				// 类型
 				type: Array,
 				default: () => {
-					console.log(1231654);
+					// console.log(1231654);
 					// return [{
 					// 	name: '张三',
 					// 	// 是否加载css样式

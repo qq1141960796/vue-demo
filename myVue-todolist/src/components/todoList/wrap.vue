@@ -56,11 +56,11 @@
 			},
 			// 点击li是的方法
 			completedRodo(item) {
-				// 点击后completed的值去反
+				// 点击后completed的值取反
 				item.completed = ! item.completed
 			},
 			setShowType(showType) {
-				console.log(showType);
+				// console.log(showType);
 				this.showType = showType
 			}
 		},
@@ -73,9 +73,9 @@
 						return this.todoList
 					case '正常':
 						// filter()是一个过滤器,过滤completed的值
-						return this.todoList.filter(item => item.completed)
-					case '完成':
 						return this.todoList.filter(item => !item.completed)
+					case '完成':
+						return this.todoList.filter(item => item.completed)
 				}
 			},
 			tatal() {

@@ -9,13 +9,25 @@
 		<!-- 这里的:todoList是绑定了filterData方法的，在todoList组件用porps接收filterData方法return出来的todoList -->
 		<todo-list 
 			@completedRodo="completedRodo"
-			:todoList="filterData" />
+			:todoList="filterData"
+			:obj="obj" />
 		<!-- 选择组件 -->
 		<filters
 			@setShowType="setShowType"
 			:showType="showType"
 			:tatal="tatal"
 			:completedTodotatal="completedTodotatal" />
+
+			<div>
+				<ul>
+					<li v-for="(item, index) in dataImg"
+						:key="index"
+					>
+						<img :src="item.imgUrl" alt="">
+						<p>{{item.name}}</p>
+					</li>
+				</ul>
+			</div>
 	</div>
 </template>
 
@@ -41,7 +53,31 @@
 				},{
 					name: '李四',
 					completed: false
-				}]
+				}],
+				obj: {
+					a: 1,
+					b: 2,
+					c: 3,
+					d: 4
+				},
+				dataImg: [
+					{
+						name: 'ni',
+						imgUrl: '../../../jtimg/1.png'
+					},{
+						name: 'hao',
+						imgUrl: '../../../jtimg/2.png'
+					},{
+						name: 'bu',
+						imgUrl: '../../../jtimg/3.png'
+					},{
+						name: 'bb',
+						imgUrl: '../../../jtimg/6.png'
+					},{
+						name: 'ss',
+						imgUrl: '../../../jtimg/7.png'
+					},
+				]
 			}
 		},
 		// 方法
@@ -69,6 +105,7 @@
 			filterData() {
 				switch(this.showType) {
 					case '全部':
+						// console.log(this.todoList)
 						// 这里todoList返回出去，子组件绑定这个方法后会传递到子组件，子组件用porps接受
 						return this.todoList
 					case '正常':

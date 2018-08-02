@@ -48,7 +48,14 @@
 					// 	completed: false
 					// }]
 				}
+			},
+			obj: {
+				type: Object,
+				default: {}
 			}
+		},
+		created() {
+			console.log(this.obj)
 		}
 	}
 </script>
